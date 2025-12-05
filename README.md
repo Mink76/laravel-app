@@ -1,63 +1,166 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+📝 Laravel 12 Blog API — Authentication, Authorization & Role-Based CRUD
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel Blog API ini dibangun menggunakan Laravel 12 dan PHP 8.2, menyediakan sistem manajemen postingan (Blog Posts) lengkap dengan Authentication, Authorization, dan Role-Based Access Control (RBAC).
+Project ini sangat cocok untuk backend aplikasi web atau mobile karena mengikuti standar REST API modern.
 
-## About Laravel
+⭐ Fitur Utama
+🔐 1. Authentication
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Menggunakan Laravel Sanctum / Token Based Authentication:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Register
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Login
 
-## Learning Laravel
+Logout
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Proteksi endpoint menggunakan token
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+👥 2. Role-Based Authorization
 
-## Laravel Sponsors
+Akses ditentukan oleh role user:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+🛠 Admin
 
-### Premium Partners
+Create Post
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Read Post
 
-## Contributing
+Update Post
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Delete Post
+(CRUD lengkap)
 
-## Code of Conduct
+👤 User
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Create Post
 
-## Security Vulnerabilities
+Read Post
+TIDAK bisa update & delete
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+👀 Guest
 
-## License
+Read Post tanpa autentikasi
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
->>>>>>> e780224b5878b8a3f4c5224fdac8b049af90555e
-"# laravel-app" 
+📰 3. Fitur Blog
+
+CRUD Post dengan validasi
+
+Relasi antara User ↔ Posts
+
+Pagination
+
+Clean & maintainable structure
+
+Middleware role-based access
+
+🧩 ERD (Entity Relationship Diagram)
++-------------------+          +------------------+
+|      users        | 1      N |      posts       |
++-------------------+----------+------------------+
+| id (PK)           |          | id (PK)          |
+| name              |          | user_id (FK)     |
+| email             |          | title            |
+| password          |          | content          |
+| role (admin/user) |          | created_at       |
+| created_at        |          | updated_at       |
++-------------------+          +------------------+
+
+🔧 Instalasi & Setup Project
+1️⃣ Clone Repository
+git clone https://github.com/Mink76/laravel-app.git
+cd laravel-app
+
+2️⃣ Install Dependencies
+composer install
+
+3️⃣ Copy & Konfigurasi Environment
+cp .env.example .env
+
+
+Ubah pengaturan database di .env:
+
+DB_DATABASE=laravel_blog
+DB_USERNAME=root
+DB_PASSWORD=
+
+4️⃣ Generate App Key
+php artisan key:generate
+
+5️⃣ Migrasi Database
+php artisan migrate
+
+6️⃣ Jalankan Server Development
+php artisan serve
+
+📌 Dokumentasi API (Ringkas)
+🔐 Authentication
+Register
+POST /api/register
+
+Login
+POST /api/login
+
+Logout
+POST /api/logout
+
+📰 Posts API
+👀 Guest (Tanpa Token)
+Method	Endpoint	Deskripsi
+GET	/api/posts	Lihat semua posts
+GET	/api/posts/{id}	Lihat detail post
+👤 User
+Method	Endpoint	Deskripsi
+POST	/api/posts	Buat post baru
+GET	/api/posts	Read posts
+GET	/api/posts/{id}	Read detail post
+🛠 Admin
+Method	Endpoint	Deskripsi
+PUT	/api/posts/{id}	Update post
+DELETE	/api/posts/{id}	Hapus post
+🧪 Header Authorization
+
+Gunakan Bearer Token:
+
+Authorization: Bearer <token>
+Accept: application/json
+
+🏗 Struktur Folder (Singkat)
+app/
+ └── Http/
+      ├── Controllers/
+      ├── Middleware/
+      └── Requests/
+routes/
+ └── api.php
+database/
+ ├── migrations/
+ └── seeders/
+
+🛠 Teknologi yang Digunakan
+
+Laravel 12
+
+PHP 8.2
+
+MySQL / MariaDB
+
+Laravel Sanctum
+
+REST API Architecture
+
+🎯 Tujuan Project
+
+Belajar membangun API backend dengan Laravel 12
+
+Menerapkan Authentication & Role-Based Authorization
+
+Membuat sistem blog CRUD modern yang siap diintegrasikan dengan frontend
+
+🤝 Kontribusi
+
+Pull request sangat diterima untuk perbaikan atau pengembangan fitur.
+
+📄 Lisensi
+
+Project ini bersifat open-source untuk tujuan edukasi dan pengembangan.
