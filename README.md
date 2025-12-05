@@ -1,166 +1,137 @@
-📝 Laravel 12 Blog API — Authentication, Authorization & Role-Based CRUD
+🌐 Laravel 12 Blog API
+🔐 CRUD Posts — Authentication & Authorization (Admin/User/Guest)
+<p align="center"> <img src="https://laravel.com/img/logomark.min.svg" width="100"> </p> <p align="center"> <b>RESTful API Blog</b> menggunakan Laravel 12 & PHP 8.2, dengan fitur CRUD Posts, Authentication, Authorization, dan Role-Based Access (Admin, User, Guest). <br> Didesain untuk backend aplikasi Web & Mobile. </p>
+🚀 Fitur Utama
 
-Laravel Blog API ini dibangun menggunakan Laravel 12 dan PHP 8.2, menyediakan sistem manajemen postingan (Blog Posts) lengkap dengan Authentication, Authorization, dan Role-Based Access Control (RBAC).
-Project ini sangat cocok untuk backend aplikasi web atau mobile karena mengikuti standar REST API modern.
+🔐 Authentication (Register, Login, Logout)
 
-⭐ Fitur Utama
-🔐 1. Authentication
+👥 Role-based authorization
 
-Menggunakan Laravel Sanctum / Token Based Authentication:
+Admin → Full CRUD Posts
 
-Register
+User → Create, Read
 
-Login
+Guest → Read only
 
-Logout
+📝 CRUD Blog Posts
 
-Proteksi endpoint menggunakan token
+🧩 User–Posts Relationship (1:N)
 
-👥 2. Role-Based Authorization
+🎯 Token-based API (Laravel Sanctum)
 
-Akses ditentukan oleh role user:
+📦 Struktur project yang clean
 
-🛠 Admin
-
-Create Post
-
-Read Post
-
-Update Post
-
-Delete Post
-(CRUD lengkap)
-
-👤 User
-
-Create Post
-
-Read Post
-TIDAK bisa update & delete
-
-👀 Guest
-
-Read Post tanpa autentikasi
-
-📰 3. Fitur Blog
-
-CRUD Post dengan validasi
-
-Relasi antara User ↔ Posts
-
-Pagination
-
-Clean & maintainable structure
-
-Middleware role-based access
-
-🧩 ERD (Entity Relationship Diagram)
-+-------------------+          +------------------+
-|      users        | 1      N |      posts       |
-+-------------------+----------+------------------+
-| id (PK)           |          | id (PK)          |
-| name              |          | user_id (FK)     |
-| email             |          | title            |
-| password          |          | content          |
-| role (admin/user) |          | created_at       |
-| created_at        |          | updated_at       |
-+-------------------+          +------------------+
-
-🔧 Instalasi & Setup Project
-1️⃣ Clone Repository
-git clone https://github.com/Mink76/laravel-app.git
-cd laravel-app
-
-2️⃣ Install Dependencies
-composer install
-
-3️⃣ Copy & Konfigurasi Environment
-cp .env.example .env
-
-
-Ubah pengaturan database di .env:
-
-DB_DATABASE=laravel_blog
-DB_USERNAME=root
-DB_PASSWORD=
-
-4️⃣ Generate App Key
-php artisan key:generate
-
-5️⃣ Migrasi Database
-php artisan migrate
-
-6️⃣ Jalankan Server Development
-php artisan serve
-
-📌 Dokumentasi API (Ringkas)
-🔐 Authentication
-Register
-POST /api/register
-
-Login
-POST /api/login
-
-Logout
-POST /api/logout
-
-📰 Posts API
-👀 Guest (Tanpa Token)
-Method	Endpoint	Deskripsi
-GET	/api/posts	Lihat semua posts
-GET	/api/posts/{id}	Lihat detail post
-👤 User
-Method	Endpoint	Deskripsi
-POST	/api/posts	Buat post baru
-GET	/api/posts	Read posts
-GET	/api/posts/{id}	Read detail post
-🛠 Admin
-Method	Endpoint	Deskripsi
-PUT	/api/posts/{id}	Update post
-DELETE	/api/posts/{id}	Hapus post
-🧪 Header Authorization
-
-Gunakan Bearer Token:
-
-Authorization: Bearer <token>
-Accept: application/json
-
-🏗 Struktur Folder (Singkat)
-app/
- └── Http/
-      ├── Controllers/
-      ├── Middleware/
-      └── Requests/
-routes/
- └── api.php
-database/
- ├── migrations/
- └── seeders/
-
+👥 Role & Hak Akses
+Role	Create	Read	Update	Delete
+Admin	✔️	✔️	✔️	✔️
+User	✔️	✔️	❌	❌
+Guest	❌	✔️	❌	❌
 🛠 Teknologi yang Digunakan
 
 Laravel 12
 
 PHP 8.2
 
+Laravel Sanctum (API Token)
+
 MySQL / MariaDB
 
-Laravel Sanctum
+REST API JSON Standard
 
-REST API Architecture
+📌 Endpoint API
+🔐 Authentication
+Method	Endpoint	Deskripsi
+POST	/api/register	Register user baru
+POST	/api/login	Login dan mendapatkan token
+POST	/api/logout	Logout & menghapus token
+📰 Posts API
+👀 Guest
+GET /api/posts
+GET /api/posts/{id}
 
-🎯 Tujuan Project
+👤 User
+POST /api/posts
+GET /api/posts
+GET /api/posts/{id}
 
-Belajar membangun API backend dengan Laravel 12
+🛠 Admin
+PUT /api/posts/{id}
+DELETE /api/posts/{id}
 
-Menerapkan Authentication & Role-Based Authorization
+📂 Struktur Folder (Ringkas)
+app/
+ ├── Http/
+ │     ├── Controllers/
+ │     ├── Middleware/
+ │     └── Requests/
+routes/
+ └── api.php
+database/
+ ├── migrations/
+ └── seeders/
 
-Membuat sistem blog CRUD modern yang siap diintegrasikan dengan frontend
+🏗 ERD – Entity Relationship Diagram
++-------------------+          +------------------+
+|      users        | 1      N |      posts       |
++-------------------+----------+------------------+
+| id                |          | id               |
+| name              |          | user_id          |
+| email             |          | title            |
+| password          |          | content          |
+| role              |          | created_at       |
++-------------------+          | updated_at       |
+                               +------------------+
+
+⚙️ Instalasi
+1️⃣ Clone Repository
+git clone https://github.com/USERNAME/laravel-app.git
+cd laravel-app
+
+2️⃣ Install Dependencies
+composer install
+
+3️⃣ Konfigurasi File Environment
+cp .env.example .env
+
+
+Sesuaikan database:
+
+DB_DATABASE=laravel_blog
+DB_USERNAME=root
+DB_PASSWORD=
+
+4️⃣ Generate Key
+php artisan key:generate
+
+5️⃣ Migrate Database
+php artisan migrate
+
+6️⃣ Jalankan Server
+php artisan serve
+
+🧪 Authentication Header
+
+Gunakan token:
+
+Authorization: Bearer <token>
+Accept: application/json
+
+🎯 Tujuan Pengembangan
+
+Belajar membuat REST API modern dengan Laravel 12
+
+Implementasi Authentication & Authorization berbasis role
+
+Membuat backend blog yang siap dipakai frontend (Web/Mobile)
 
 🤝 Kontribusi
 
-Pull request sangat diterima untuk perbaikan atau pengembangan fitur.
+Kontribusi terbuka untuk siapa pun melalui Pull Request.
 
-📄 Lisensi
+📄 License
 
-Project ini bersifat open-source untuk tujuan edukasi dan pengembangan.
+Project ini bersifat open-source dan dapat dikembangkan lebih lanjut sesuai kebutuhan.
+
+❤️ Terima Kasih
+
+Jika project ini membantu, jangan lupa ⭐ di GitHub.
